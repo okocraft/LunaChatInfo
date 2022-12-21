@@ -1,0 +1,2 @@
+# LunaChatInfo
+LunaChatの現在のデフォルトチャンネルをPlaceholderAPIに伝達するためだけのプラグイン
