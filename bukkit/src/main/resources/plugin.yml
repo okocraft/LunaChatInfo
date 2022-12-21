@@ -1,0 +1,7 @@
+name: LunaChatInfo
+version: '1.0.0'
+main: net.okocraft.lunachatinfo.bukkit.Main
+author: LazyGon
+api-version: 1.19
+depend: ["PlaceholderAPI"]
+softdepend: ["LunaChat"]

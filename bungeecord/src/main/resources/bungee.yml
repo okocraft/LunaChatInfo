@@ -1,0 +1,5 @@
+name: LunaChatInfo
+version: '1.0.0'
+main: net.okocraft.lunachatinfo.bungeecord.Main
+author: LazyGon
+depends: ["LunaChat"]
