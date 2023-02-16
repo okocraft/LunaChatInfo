@@ -23,7 +23,6 @@ public class Main extends Plugin implements Listener {
         getProxy().registerChannel(PMC_NAME);
         modifiedLunaChatAPI = new DelegateChannelManager((ChannelManager) LunaChatBungee.getInstance().getLunaChatAPI());
         setChannelManager(modifiedLunaChatAPI);
-        modifiedLunaChatAPI.setDefaultChannel("lazy_gon", "lazy");
         getProxy().getPluginManager().registerListener(this, this);
     }
 
