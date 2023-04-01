@@ -8,11 +8,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,9 +28,23 @@ import org.jetbrains.annotations.NotNull;
 
 public class Main extends JavaPlugin implements PluginMessageListener, Listener {
 
+    private static final boolean FOLIA;
+
+    static {
+        boolean isFolia;
+        try {
+            Class.forName("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
+            isFolia = true;
+        } catch (ClassNotFoundException e) {
+            isFolia = false;
+        }
+
+        FOLIA = isFolia;
+    }
+
     private static final String PMC_NAME = "lunachat:info";
 
-    private final Map<String, String> defaultChannels = new HashMap<>();
+    private final Map<String, String> defaultChannels = new ConcurrentHashMap<>();
 
     private final Placeholder placeholderAPIHook = new Placeholder(this);
 
@@ -42,13 +57,9 @@ public class Main extends JavaPlugin implements PluginMessageListener, Listener 
         getServer().getPluginManager().registerEvents(this, this);
         placeholderAPIHook.register();
 
-        getServer().getScheduler().runTaskLater(
-                this,
-                () -> getServer().getOnlinePlayers().stream()
-                        .map(Player::getName)
-                        .forEach(this::sendDefaultChannelGet),
-                20L
-        );
+        getServer().getOnlinePlayers().stream()
+                .map(Player::getName)
+                .forEach(this::scheduleGettingDefaultChannelTask);
     }
 
     @Override
@@ -61,8 +72,7 @@ public class Main extends JavaPlugin implements PluginMessageListener, Listener 
 
     @EventHandler
     private void onPlayerJoin(PlayerJoinEvent event) {
-        getServer().getScheduler()
-                .runTaskLater(this, () -> sendDefaultChannelGet(event.getPlayer().getName()), 20L);
+        scheduleGettingDefaultChannelTask(event.getPlayer().getName());
     }
 
     @EventHandler
@@ -101,6 +111,18 @@ public class Main extends JavaPlugin implements PluginMessageListener, Listener 
                 }
             }
         } catch (IOException ignored) {
+        }
+    }
+
+    private void scheduleGettingDefaultChannelTask(String playerName) {
+        runTaskLater(() -> sendDefaultChannelGet(playerName));
+    }
+
+    private void runTaskLater(@NotNull Runnable task) {
+        if (FOLIA) {
+            getServer().getGlobalRegionScheduler().runDelayed(this, $ -> task.run(), 20L);
+        } else {
+            getServer().getScheduler().runTaskLater(this, task, 20L);
         }
     }
 
