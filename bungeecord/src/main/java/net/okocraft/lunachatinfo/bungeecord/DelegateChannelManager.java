@@ -15,7 +15,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import net.md_5.bungee.api.ProxyServer;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Delegate class to prevent reload command from changing map instance.
@@ -41,9 +43,9 @@ public class DelegateChannelManager extends ChannelManager {
         return this.delegate;
     }
 
-    public DelegateChannelManager(ChannelManager delegate) {
+    public DelegateChannelManager(@NotNull ChannelManager delegate) {
         super(); // <- do reloadAllData with null delegate instance. sad.
-        this.delegate = delegate;
+        this.delegate = Objects.requireNonNull(delegate);
         reloadAllData();
     }
 

@@ -20,6 +20,10 @@ public class Main extends Plugin implements Listener {
 
     @Override
     public void onEnable() {
+        if (getProxy().getPluginManager().getPlugin("LunaChat") == null) {
+            throw new IllegalStateException("LunaChat is not found.");
+        }
+
         getProxy().registerChannel(PMC_NAME);
         modifiedLunaChatAPI = new DelegateChannelManager((ChannelManager) LunaChatBungee.getInstance().getLunaChatAPI());
         setChannelManager(modifiedLunaChatAPI);
