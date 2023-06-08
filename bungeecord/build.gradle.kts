@@ -14,22 +14,15 @@ repositories {
 }
 
 dependencies {
-    compileOnly("net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT")
+    compileOnly("net.md-5:bungeecord-api:1.20-R0.1-SNAPSHOT")
     compileOnly("com.github.ucchyocean:LunaChat:v3.0.16") {
         exclude("org.bstats")
     }
-
-    implementation("org.jetbrains:annotations:23.1.0")
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    compileOnly("org.jetbrains:annotations:24.0.1")
 }
 
 tasks {
     compileJava {
         options.release.set(17)
-    }
-    test {
-        useJUnitPlatform()
     }
 }
