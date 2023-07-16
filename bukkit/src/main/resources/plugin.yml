@@ -3,5 +3,6 @@ version: '1.0.0'
 main: net.okocraft.lunachatinfo.bukkit.Main
 author: LazyGon
 api-version: 1.19
+folia-supported: true
 depend: ["PlaceholderAPI"]
 softdepend: ["LunaChat"]
