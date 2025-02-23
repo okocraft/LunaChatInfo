@@ -14,7 +14,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly("net.md-5:bungeecord-api:1.20-R0.1-SNAPSHOT")
+    compileOnly("net.md-5:bungeecord-api:1.21-R0.1-SNAPSHOT") {
+        exclude("com.mojang", "brigadier")
+    }
     compileOnly("com.github.ucchyocean:LunaChat:v3.0.16") {
         exclude("org.bstats")
     }
