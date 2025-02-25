@@ -17,6 +17,7 @@ repositories {
 dependencies {
     implementation("net.okocraft:lunachatinfo-bukkit:1.0.0")
     implementation("net.okocraft:lunachatinfo-bungeecord:1.0.0")
+    implementation("net.okocraft:lunachatinfo-velocity:1.0.0")
 }
 
 tasks {

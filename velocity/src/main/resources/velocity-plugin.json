@@ -1,0 +1,16 @@
+{
+  "id": "lunachatinfo",
+  "name": "LunaChatInfo",
+  "version": "1.0.0",
+  "authors": [
+    "LazyGon",
+    "Siroshun09"
+  ],
+  "dependencies": [
+    {
+      "id": "lunachat",
+      "optional": false
+    }
+  ],
+  "main": "net.okocraft.lunachatinfo.velocity.Main"
+}
